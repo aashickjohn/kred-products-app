@@ -74,15 +74,15 @@ class maintainOrders(APIView):
         return Response(serializer.data)
 
     def post(self, request, pid, format=None):
-        prod = productValidator(pid)
+        prod_obj = productValidator(pid)
         order_data = request.data
 
-        if prod:
+        if prod_obj:
             serializer = OrderSerializer(data=request.data)
             user_id = request.user.pk
             if serializer.is_valid():
-                serializer.save(buyer_id_id=user_id)
-                updateProductQuantity(order_data, prod)
+                serializer.save(buyer_id_id=user_id, prod_name=prod_obj.prod_name)
+                updateProductQuantity(order_data, prod_obj)
                 return Response({'Message': 'order placed successfully'}, status=status.HTTP_201_CREATED)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
