@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from oshop.views import CustomAuthTokenLogin, ProductMaintain, maintainOrders
+from oshop.views import CustomAuthTokenLogin, ProductMaintain, maintainOrders, index
 
 # namespace in django
 app_name = 'onshop'
 
 urlpatterns = [
+    path('', index, name='index'),
     path('login/', CustomAuthTokenLogin.as_view()),
     path('product/', ProductMaintain.as_view()),
     path('product/<int:pid>/', ProductMaintain.as_view()),

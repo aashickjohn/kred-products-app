@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from oshop.models import Product, Orders
 from .serializers import ProductSerializer, OrderSerializer
 
@@ -24,6 +25,8 @@ def updateProductQuantity(data, prod_obj):
     prod_obj.quantity = prod_obj.quantity - data['buy_quantity']
     prod_obj.save()
 
+def index(request):
+    return HttpResponse("Please refer -README- for URL details.")
 
 class CustomAuthTokenLogin(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
